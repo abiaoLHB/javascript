@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>02-语法、变量、关键字</title>
+</head>
+<body>
+	<script type="text/javascript">
+	// 1、所有关键字 区分 大小写  <br>	
+	var text = '大写pp'
+	var Text = '小写PP'
+	console.log(text)
+	console.log(Text)
+
+	// 2、标示符组成 a（字母）、_(下划线)、$（美元符号）、数字
+	var a='变量1'
+	var A='变量2'
+	var _a='变量3'
+	var $a='变量4'
+	var a5='变量5'
+	console.log(a)
+	console.log(A)
+	console.log(_a)
+	console.log($a)
+	console.log(a5)
+
+	
+	var box;
+	console.log(box)  //undefined
+	// box声明了，但没有初始化，系统会自动给他一个默认值，就是undefined
+
+	console.log(age) // Uncaught ReferenceError: age is not defined
+	// 直接报错。因为不存在
+
+
+	</script>
+	
+</body>
+</html>
