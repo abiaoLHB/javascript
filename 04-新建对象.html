@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    <script>
+      // 1、工厂模式
+      function createPerson(name,age,address) {
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.address = address;
+        return o;
+      }
+      var person1 = this.createPerson('zhangsan',24,'beijing');
+      var person2 = this.createPerson('lisi',30,'tianjin');
+      console.log(person1,person2)
+
+
+      //2、构造函数模式
+      function CreatDog(name,age,address){
+        this.name = name;
+        this.age = age;
+        this.address = address;
+      }
+
+      var dog1 = new CreatDog('jinmao',2,'zhejiang')
+      var dog2 = new CreatDog('qiutianquan',3,'tokey')
+      console.log(dog1,dog2)
+
+    </script>
+
+
+    </body>
+</html>
