@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组合继承</title>
+</head>
+<body>
+
+	<p>最常用的继承方式</p>
+	<p>通过call和apply，也就是借用构造函数继承属性</p>
+	<p>通过原型继承方法，也就是子类的原型等于父类的实例</p>
+
+	<script>
+
+	function Super(name){
+		this.name = name;
+		this.colors=['red','orage','blue'];
+	}
+
+	Super.prototype.sayName=function(){
+		console.log(this.name)
+	}
+
+
+	function Sub(name,age){
+		//继承属性了
+		Super.call(this,name);
+
+		this.age=age;
+	}
+
+	//继承了方法
+	 Sub.prototype = new Super();
+	 Sub.prototype.constructor = Sub;
+	 Sub.prototype.sayAge = function(){
+	 	console.log(this.age);
+	 }
+
+	var sub = new Sub('wsh',30)
+	
+	sub.sayName();
+	
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
