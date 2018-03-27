@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>call和apply</title>
+</head>
+<body>
+	<ul id="box" class='box'>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+
+	<script>
+		function Person(name,age,address){
+			this.name = name;
+			this.age = age;
+			this.address = address;
+			this.sayName = function(){
+				console.log('my name is---');
+				console.log(this.name);
+				console.log('my name is---');
+			}
+		}
+
+		var o = new Object();
+
+		Person.call(o,'luo',28,'jiugong');
+		o.sayName();
+		console.log(o.name)
+		console.log(o.address)
+
+		// 使用场景
+		var ul = document.getElementById('box').childNodes
+		//var ul=document.childNodes;
+		//var child_nodes = ul.childNodes; 
+		var li = document.createElement('li');
+		li.innerHTML='6';
+		var list=Array.prototype.filter.call(ul,function(item){
+			if(item.tagName == 'LI')
+			{
+				return true
+			}
+
+		})
+
+		let a=Array.prototype.slice.call(ul,0,1);
+		console.log(a);
+
+	
+
+		// console.log(Array.prototype.push)
+		// console.log('typeof ul')
+		// console.log(ul instanceof Array)
+		// console.log('typeof ul')
+
+		// var arr = [1,2,3];
+		// console.log('typeof arr')
+		// console.log(arr instanceof Array)
+		// console.log('typeof arr')
+
+		// console.log('typeof Person')
+		// console.log(typeof Person)
+		// console.log('typeof Person')
+
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
