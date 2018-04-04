@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>超时调用</title>
+	<style >
+		#box{
+			width: 100px;
+			height: 100px;
+			background-color: #ff0000;
+		}
+		#box2{
+			width: 30px;
+			height: 30px;
+			background-color:#00ff00;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="box2">
+			box2
+		</div>
+		box1
+	</div>
+
+	<script>
+		var pp = document.getElementById("box");
+		pp.onclick = function(e){
+
+			alert('box1')
+		}
+
+		var pp2 = document.getElementById("box2");
+		pp2.onclick = function(e){
+			e.stopPropagation();
+			alert('box2')
+		}
+
+
+
+
+
+
+// 		var prompt = prompt('what your name');
+//	    console.log(prompt);
+// console.log(navigator)
+// console.log(location);
+
+
+
+
+
+
+		// if(confirm('are you suer?')){
+		// 	console.log('ok')
+		// }else{
+		// 	console.log('cancle')
+		// }
+
+		// var timeId = setTimeout(function(){
+		// 	console.log('超时调用');
+		// },2000)//2秒钟后加入到任务队列
+		// console.log(timeId)
+		// // 什么也不打印，就跟什么都没发生一样
+		// clearTimeout(timeId);
+
+
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包</title>
+</head>
+<body>
+	<!-- 闭包只能取得包含函数中任何变量的最后一个值 -->
+	<script>
+
+		// function closer(){
+		// 	var arr = new Array();
+		// 	for(var i=0;i<10;i++){
+		// 		arr[i]=function(){
+		// 			console.log(i);
+		// 		}
+		// 	}
+		// 	return arr;
+		// }
+		// console.log(closer()[2]())
+
+		var name = "The Window"
+		var object = {
+			name:'My Object',
+			getName:function(){
+				return this.name
+			}
+		}
+		console.log(object.getName());
+		console.log( (object.getName)() )
+		console.log(  (object.getName=object.getName)()    )
+
+
+
+
+	</script>
+
+	
+</body>
+</html>
