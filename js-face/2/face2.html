@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            /* 第一题目 */
+          /* .box1{width: 500px;height: 500px;border: 1px #000 dotted;position: relative;}
+          .box2{border:1px solid #ff0000;text-align: center;} */
+          /*1 符合要求*/
+          /*.box1{display: flex;align-items: center;justify-content: center;}*/
+
+          /*2 符合要求*/
+          /*.box1{display: table-cell; vertical-align: middle; text-align: center;}
+          .box2{display:inline-block;}*/
+
+          /*3 符合要求，定位后用transform的translate方法做移动调整*/
+          /*.box2 {position: absolute; left:50%; top:50%; -webkit-transform:translate(-50%,-50%); transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);}*/
+
+          /*4、不符合要求，因为这样必须知道box2的宽高*/
+          /*.box2 {width: 100px;height: 100px; position: absolute; left:0; top:0; bottom: 0;right: 0;margin: auto;}*/
+
+          /*5 不符合要求，因为这样必须知道box2的宽高*/
+          /*.box2{width: 100px;height: 100px; position:absolute;top:50%;left:50%;margin-left:-50px;margin-top: -50px;}*/
+
+          /*6 不行  伪元素的100%高就是他父亲的高。伪元素伪元，就是往当前标签的前面或者后面插入一个非标签生成的dom元素*/
+          /*.box2::before{content:'';display: block;vertical-align: middle;height: 100%;}
+          .box2::after{content:'';display: block;vertical-align: middle;height: 100%;}
+          .box2{height: 100px;line-height: 100px;text-align: center;}*/
+
+          /*7 不行 给父元素增加空span*/
+          /*.box1 span{display: inline-block;vertical-align: middle;height: 100%;}
+          .box2{display:inline-block;vertical-align: middle;}*/
+
+            /* 第1.1题 */
+            .box2 {background-color: orange;margin-top: 30px;display: flex;}
+            .div1{width: 50px;height: 50px;background: red;}
+            .div2{flex: 1;background: blue;}
+
+            .box3{width: 100px;height: 100px;background-color: red;}
+            .box3 .a{width: 50px;height: 50px;color: #fff; background: rgba(0, 0, 0, 0.5)}
+            .box4 .b{width: 50px;height: 50px;color: #fff;background: black;opacity: 0.5;}
+            .box4 .c{width: 20px;height: 20px;background: yellow;}
+        </style>
+    </head>
+    <body>
+        <!-- 1、未知宽高盒子垂直居中 -->
+        <div class="box1">
+            <div class="box2">哈哈哈哈哈</div>
+            <!-- <span class="box2">中和黄埔教育</span> -->
+        </div>
+        <!-- 1.1、左边固定，右边自适应 -->
+        <div class="box2">
+            <div class="div1">1</div>
+            <div class="div2">2</div>
+        </div>
+
+        <!-- 2、介绍css盒模型 -->
+        <!-- 盒子模型分为IE盒子和W3c盒子两种：
+        W3C盒子由margin，border，padding，content
+        IE盒子由margin，border，padding，content构成，
+        但是由于content包括padding，border，即为margin+content -->
+
+        <!-- 3、rgba 和 opacity 透明度有什么区别 -->
+        <!-- rgba只是自己本身更改了透明度 -->
+        <!-- opcaticy是本身和包括的自元素都有了透明度 -->
+        <div class="box3">
+            <div class="a">我是rgba</div>
+        </div>
+        <div class="box4 box3">
+                <div class="b">opacity
+                    <div class="c">c</div>
+                </div>
+            </div>
+
+        <!-- 4、 什么是同源策略？如何解决？解释jsonp原理 -->
+       <p style="display: none">1、同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，
+        不能读写对方资源。所以a.com下的js脚本采用ajax读取b.com里面的文件数据是会报错的.
+                采用jsonp跨域也存在问题：
+                1.	使用这种方法，只要是个网站都可以拿到b.com里的数据，存在安全性问题。需要网站双方商议基础token的身份验证，这里不详述。
+                2.	只能是GET，不能POST。
+                3.	可能被注入恶意代码，篡改页面内容，可以采用字符串过滤来规避此问题。
+                
+                •	CORS
+                CORS是一个W3C标准，全称是"跨域资源共享"（Cross-origin resource sharing）。
+                它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。
+                刚才的例子中，在b.com里面添加响应头声明允许a.com的访问，代码：
+                Access-Control-Allow-Origin: http://a.com
+                然后a.com就可以用ajax获取b.com里的数据了。
+                注意：此方法IE8以下完全不支持，IE8-10部分支持。详见caniuse-CORS
+                详细内容请参考：跨域资源共享 CORS 详解
+                
+                •	其它方法
+                1.	HTML5的postMessage方法
+                2.	window.name
+                3.	location.hash
+        </p>
+
+        <!-- 5输出值 -->
+        <script>
+        var k;
+        for(i=0,j=0;i<10,j<6;i++,j++){
+            k=i+j;
+        }
+        console.log(k);//10
+
+        (function(){
+            name='张三'
+        })();
+        console.log(name);//张三
+
+
+        var m=1;
+        console.log(m++);//1
+        var n=1;
+        console.log(++n);//2
+
+        var foo = 1;
+        function bar(){
+            foo = 10;
+            return;
+            function foo(){}
+        }
+        bar();
+        console.log('foo')
+        console.log(foo);//1
+        console.log('foo')
+
+    
+        abc()
+        cdf()
+
+        function abc(){
+            console.log('abc')
+        }
+        function cdf(){
+            console.log('cdf')
+        }
+
+        // (5、)
+        for(var i=0;i<3;i++){
+            setTimeout(function(){
+                console.log(i);//3,3,3
+            }, 0);
+        }
+
+        // (6、)
+        for(let i=0;i<3;i++){
+            setTimeout(function(){
+                console.log(i);//0,1,2
+            }, 0);
+        }
+        //(7、)
+        var pp=1;
+        function fun1(){
+            console.log(pp+'----');
+        }
+        function fun2(){
+            var pp=2;
+            fun1()
+        }
+        fun2();
+
+        //（8）
+        var arr1 = [1,2,3,4,5,{'bigName':'luohongbiao'}]
+        var arr2 = arr1;
+        var arr3=[]
+        arr1.forEach(function(item,i){
+            arr3[i] = item
+        })
+        arr1[0] = 6;
+        arr3[5].bigName = 'wangsuhuan'
+        console.log(arr2[0]);//6
+        console.log(arr3[0]);//1
+        console.log(arr1[5])//luohongbiao
+
+        // (9、)
+        var arr04=[{a:1},{a:2}];
+        var arr05 = [];
+        arr04.forEach(function(item,i){
+            // 赋值时还是赋值的地址。也就是item就是地址
+            arr05[i]=item;
+        })
+        arr04[0].a = 5
+        console.log(arr05[0]);//{a:5}
+        console.log(arr04)
+        console.log(arr05)
+
+
+        // 数组去重
+        var arr6 = [1,1,2,2,2,2,2,2,8,8,8,3,5,3,8,8,4,0]
+        function quchong(){
+            let arr=arr6.sort();
+            let target=[];
+            for(let i=0;i<arr.length;i++)
+            {
+                if(arr[i]!=arr[i+1])
+                {
+                    target.push(arr[i]);
+                }
+            }
+            console.log(target);
+        }
+
+        var arr7 = [1,1,'2',2,2,2,'2',2,8,8,8,3,5,3,8,8,4,0,'luo','luo']
+        function quchong2(arr){
+            var newArr = []
+            for(let i=0;i<arr.length;i++){
+                // if(arr.indexOf(arr[i]) == i ){
+                //     newArr.push(arr[i]);
+                // }
+                
+                // 更简单
+                if(newArr.indexOf(arr[i]) == -1){
+                    newArr.push(arr[i])
+                }
+            }
+            return newArr
+        }
+        quchong();
+        console.log('newArray')
+        console.log(quchong2(arr7).sort());
+        console.log('newArray')
+        
+
+        </script>
+    </body>
+</html>

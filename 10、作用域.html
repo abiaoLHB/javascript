@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 没有块及作用域，只有全局作用域和函数作用域，变量可以不用var关键字声明
+    // 就可以直接使用
+    for(var i=0;i<10;i++){}
+    console.log(i)//10
+    // 相当于：
+    // var a = undefined;
+    // a=5
+    a=5;
+    console.log(a);//5
+
+
+    // 用立即执行函数可以模仿块级作用域.好处是可以防止污染全局变量
+    // 该作用域声明的变量只在该域块内有效，外部无法访问
+    (function(){
+        var b = 3;
+        console.log(b);
+    })()
+    // console.log(b)//b is not defined
+    
+
+    // 变量提升
+    c=20;
+    (function(){
+        console.log(c)//undefiend
+        var c=1;
+        console.log(c)//1
+    })()
+
+    d=30;
+    function pp (){
+        console.log(d);//undefiend
+        var d=40;
+        console.log(d)//40
+    }
+    pp();
+
+
+    f=50;
+    function qq (){
+        console.log(f);//50
+        f=60;
+        console.log(f)//60
+    }
+    qq();
+
+    // 其实就是将变量的声明放到作用域的最上面
+    // var c=undefined;
+    // c=20;
+    // (function(){
+    //     var c=undefined;
+    //     console.log(c)
+    //      c=1;
+    // })()
+
+    //函数作用域
+    function fn1(){
+        name='luo'
+    }
+    fn1();
+    console.log(name);//luo
+
+    var sex = 'nv';
+    (function fn2(){
+        sex='nan'
+    })();
+    console.log(sex);//nan
+
+    function fn3(){
+        job='web'
+    }
+    // console.log(job);//Uncaught ReferenceError: job is not defined
+    console.log(window)//没有window.job属性
+
+
+    
+    // 作用域链图中很明确的表示出：在变量解析过程中首先查找局部的作用域，然后查找上层作用域。
+    // ES6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就
+    // 形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错
+    
+    var luohongbiao='luohongbiao';
+    var luohongbiao = 'wangsuhuan';
+    console.log(luohongbiao);//不报错,wangsuhuan
+
+
+    // // let 不能重复声明
+
+    // let address = '北京';
+    // let address = '上海';
+    // console.log(address);//Identifier 'address' has already been declared
+
+    // const 也不能重复声明
+    // const age = 300;
+    // const age = 30;
+    // console.log(age);//Identifier 'age' has already been declared
+
+    </script>
+</body>
+</html>

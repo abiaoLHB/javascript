@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .a.b{border-color: transparent;}
+        .a{width: 100px;height: 100px;padding: 10px;border: 10px solid blue;
+            background-color: red;}
+        .b{padding: 20px;}
+
+        .parent{width: 90px;}
+        .parent p{float: left;width: 30px;}
+        .parent p+p{float: right;}
+
+        /* 同时具有这两个类名才有效 */
+        .div1.div2{color: blue;}
+        .div2{}
+        /* 背景色会填充内边距 */
+        .div3{background: orange;padding-left: 100px;}
+
+        .div4.div5{border-color: transparent;}
+        .div4{width: 50px;height: 50px;background-color: gray;border: 10px solid blue;}
+
+        .div6{background-color: blue;}
+        /* 层叠掉div7样式 */
+        .div7{background-color: yellow;}
+
+        .div8 {border: 1px solid; background-color: yellow;color: transparent;margin-bottom: 20px;}
+        .div9{width: 0;height: 0;border-left: 50px solid transparent;border-right: 50px solid transparent;border-bottom: 100px solid blue;}
+   
+    </style>
+</head>
+<body>
+    <div class="div1 div2">我是红色div1</div>
+    <div class="div2">我是蓝色div2</div>
+    <div class="div3">我是div3</div>
+    <div class="div4 div5">我是div4</div>
+    <div class="div6 div7">div6</div>
+    <div class="div8">div8</div>
+    <div class="div9"></div>
+
+
+    <!-- 1、应该是160x160  -->
+    <div class="a b"></div>
+    <!-- 2、对了 a c b -->
+    <div class="parent">
+        <p>a</p>
+        <p>b</p>
+        <p>c</p>
+    </div>
+
+    <!-- 6、点击弹正确索引 -->
+    <ul id="test">
+        <li>这是第一条</li>
+        <li>这是第二条</li>
+        <li>这是第三条</li>
+    </ul>
+
+    <script>
+        // 3、js 对象深度拷贝
+        var a = { 
+            "a": { 
+                "a1": ["a11", "a12"],
+                 "a2": 1 
+                },
+             "b": 2 
+            };
+
+        var b={};
+        // mine
+        for(keys in a){
+            b[keys]  = a[keys]
+        }
+        console.log('b')
+        console.log(b)
+        console.log('b')
+
+        // 网
+        var objDeepCopy = function(source){
+            var sourceCopy={}
+            for(var item in source){
+                sourceCopy[item] = typeof source[item] === 'object'?objDeepCopy(source[item]) : source[item];
+            }
+            return sourceCopy
+        }
+        console.log('deep')
+        console.log(objDeepCopy(a))
+        console.log('deep')
+
+        // 4、下面语句的返回值 
+        // "goh angassal a m'i"
+        console.log("i'm a lassagna hog".split("").reverse().join(""));
+        // ["i", "'", "m", " ", "a", " ", "l", "a", "s", "s", "a", "g", "n", "a", " ", "h", "o", "g"]
+        console.log("i'm a lassagna hog".split(""))
+        // ["g", "o", "h", " ", "a", "n", "g", "a", "s", "s", "a", "l", " ", "a", " ", "m", "'", "i"]
+        console.log("i'm a lassagna hog".split("").reverse())
+
+
+        // 6、
+        var domitems = document.querySelector('#test').children
+        for(var i=0;i<domitems.length;i++){
+            (function(i){
+                domitems[i].addEventListener('click',function(){
+                    // alert(i)
+                })
+            })(i)
+        }
+
+        // 闭包
+        function addEvent(domitems){
+            for(var i=0;i<domitems.length;i++){
+                domitems[i].onclick = (function(i){
+                        return function(){
+                            console.log(i)
+                        }
+                    })(i)
+            }
+        }
+        addEvent(domitems)
+
+        // 7、运行结果
+        // (1、答对了)
+        var myObject = {
+            num:2,
+            add:function(){
+                this.num = 3;
+                (function(){
+                    // alert(this.num) //undefiend
+                    this.num = 4
+                })()
+                // alert(this.num)//3
+            }
+        }
+        myObject.add()
+
+        // （2、打错了，疑惑)
+        var pp=0;
+        for(var pp=0;pp<3;pp++){
+            setTimeout(function(){
+                return function(){
+                    console.log(pp) // 3,3,3
+                }()
+            }, 1000);//0秒或者1秒，都是三个三
+        }
+
+        for(var k=0;k<10;k++){
+            (function(k){
+                setTimeout(function(){
+                    console.log(k);
+                },1000)
+            })(k)
+        }
+
+
+
+
+
+
+
+        // （3、）
+        console.log(typeof(null)) //'object'
+        console.log(typeof(undefined)) //'undefined'
+        console.log(typeof NaN) //'number' (答错了)
+        console.log(NaN == undefined) //'false' (答错了)
+        //（4）
+        var str = '123abc'
+        console.log(typeof(str++))//'number'
+        console.log(str++)//'NaN'
+        console.log(str)//'NaN'
+
+        // (5、)
+        var x=1,y=z=0;
+        function add(n){
+            return n=n+1
+        }
+        y = add(x)
+        console.log(y) // 4
+        function add(n){
+            return n=n+3
+        }
+        z=add(x)
+        console.log(z) //4
+
+    </script>
+</body>
+</html>
