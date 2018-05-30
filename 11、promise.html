@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        // (function(){
+        //     // callback
+        // function fun1(a,fun2){
+        //     if(a>10 && typeof fun2 =='function'){
+        //         fun2()
+        //     }
+        // }
+        // fun1(20,function fun2(){
+        //     console.log('this is a callback')
+        // })
+
+        // // 执行器
+        // let promise = new Promise(function(resolve,reject){
+        //     console.log('promise1')
+        //     resolve()
+        //     console.log('promise2')
+        // });
+
+        // promise.then(function(){
+        //     console.log('success')
+        // }).catch(error=> {
+        //     console.log('catch'+error)
+        // });
+        
+        // console.log('hi')
+
+
+
+        // let promise1 = Promise.resolve(42)
+        // promise1.then(function(value){
+        //     console.log(value);
+        // })
+        // let promise2 = Promise.reject(142)
+        // promise2.then(null,function(value){
+        //     console.log(value);
+        // });
+        // })();
+
+
+        // (function(){
+        //    var promise = new Promise(function(resolve,reject){
+        //        setTimeout(() => {
+        //            resolve('success')
+        //        }, 2000);
+        //    });
+
+        //    promise.then(function(data){
+        //        console.log(data);
+        //        return 'data2'
+        //    },function(error){
+        //        console.log(error);
+        //    }).then(function(data2){
+        //        console.log(data2+'data2')
+        //        return new Promise(function(resolve,reject){
+        //            reject('把状态设置为reject')
+        //        })
+        //    },function(error2){
+        //        console.log(error2);
+        //    }).then(function(){
+        //        console.log('不走这里');
+        //    },function(data){
+        //        console.log('第三个then');
+        //        console.log(data);
+        //        console.log('第三个then');
+        //    })
+
+        // })();
+
+
+        // (function(){
+        //     var arr = [1,2,3];
+        //     var promise = arr.map(function(item,index,arr){
+        //         return new Promise(function(resolve,reject){
+        //             resolve(item * 5)
+        //         })
+        //     });
+
+        //     Promise.all(promise).then(function(data){
+        //         console.log(data);
+        //         console.log(arr);
+        //     })
+
+        // })();
+
+
+           (function(){
+                function getNumber(){
+                    return new Promise(function(resolve,reject){
+                        setTimeout(function(){
+                            var number = Math.ceil(Math.random()*10);
+                            if(number <= 5){
+                                resolve(number)
+                            }else{
+                                reject('数字太大了')
+                            }
+                            
+                        },200)
+                    });
+                }
+
+                getNumber().then(function(data){
+                    console.log(data);
+                    console.log(pp)
+                }).catch(error => {
+                    console.log(error)
+                })
+            })();
+
+
+            /**
+            * 用于将微信小程序异步函数封装为 Promise 风格
+            *
+            * 使用方法比如：
+            * const login = utils.promisify(wx.login)
+            * login().then(res => console.log(res.code))
+            */
+
+            export default function promisify(fn) {
+            return function(params = {}) {
+                return new Promise((resolve, reject) => {
+                params.success = function(res) {
+                    resolve(res)
+                }
+
+                params.fail = function(res) {
+                    reject(res)
+                }
+
+                fn(params)
+                })
+            }
+            }
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>
